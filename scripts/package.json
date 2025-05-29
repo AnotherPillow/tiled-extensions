@@ -10,7 +10,13 @@
   "repository": "https://github.com/fmoo/TiledTSXExtensionTemplate",
   "license": "UNLICENSED",
   "dependencies": {
-    "@mapeditor/tiled-api": "^1.11.0"
+    "@mapeditor/tiled-api": "^1.11.0",
+    "@types/ndarray": "^1.0.14",
+    "@types/pngjs": "^6.0.5",
+    "get-pixels": "^3.3.3",
+    "gifenc": "^1.0.3",
+    "ndarray": "^1.0.19",
+    "pngjs": "^7.0.0"
   },
   "devDependencies": {
     "esbuild": "^0.25.2",
