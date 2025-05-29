@@ -24,28 +24,6 @@ const getWorkingDirectory = () => {
     return config.get('working-directory');
 }
 
-// const getPixels = (buffer: ArrayBuffer): any => {
-//     // var png = new PNG();
-//     // // based on https://github.com/scijs/get-pixels/blob/master/node-pixels.js#L14 - MIT License
-//     // png.parse(Buffer.from(buffer), function(err, img_data) {
-//     //     if(err) {
-//     //         tiled.log(`[tiled-timelapse] Error parsing PNG: ${err}`);
-//     //         return
-//     //     }
-//     //     tiled.log(JSON.stringify(
-//     //         [null, 
-//     //             ndarray(
-//     //                 new Uint8Array(img_data.data),
-//     //                 [img_data.width|0, img_data.height|0, 4],
-//     //                 [4, 4*img_data.width|0, 1],
-//     //                 0
-//     //             )
-//     //         ], null, 4
-//     //     ));
-    
-//     // })
-// }
-
 getWorkingDirectory(); // confirm it is set at the start
 
 tiled.assetSaved.connect((asset: Asset) => {
@@ -113,8 +91,6 @@ const exportAction = tiled.registerAction('ExportTimelapseGif', (action) => {
     if (!savePath) return tiled.log("[tiled-timelapse] No save path selected, exiting.")
 
     const dialog = new Dialog('Export Timelapse GIF')
-
-    // dialog.addButton('asf').text = 'hi 1';
     
     const frameDelayInput = dialog.addNumberInput('Frame Length')
     frameDelayInput.decimals = 0 // integer values
@@ -138,10 +114,7 @@ const exportAction = tiled.registerAction('ExportTimelapseGif', (action) => {
     const maxColoursDropDown = dialog.addComboBox('Max Colours', maxColoursOptions.map((c) => c.toString()));
     maxColoursDropDown.currentIndex = 2; // default to 512 colours
 
-    // dialog.addButton('asf').text = 'hi'
-
     dialog.addNewRow();
-    
     
     dialog.addButton('Cancel').clicked.connect(() => {
         dialog.reject()
@@ -158,7 +131,7 @@ const exportAction = tiled.registerAction('ExportTimelapseGif', (action) => {
         tiled.log(`[tiled-timelapse] dialog rejected!`);
     })
 
-    dialog.finished.connect((result: number /* 0 = rejecte,d 1 = accepted*/) => {
+    dialog.finished.connect((result: number /* 0 = rejected, 1 = accepted*/) => {
         tiled.log(`[tiled-timelapse] dialog finished with result: ${result} (${result === 0 ? 'rejected' : 'accepted'})`);
         tiled.log(`[tiled-timelapse] frame delay: ${frameDelayInput.value} ms`);
         tiled.log(`[tiled-timelapse] colour depth/quality: ${colourDepthDropDown.currentIndex} (${colourDepthDropDownOptions[colourDepthDropDown.currentIndex]})`);
@@ -176,27 +149,7 @@ const exportAction = tiled.registerAction('ExportTimelapseGif', (action) => {
         
         const files = configMapEntry.files;
         tiled.log(`[tiled-timelapse] Exporting GIF with ${files.length} images from ${configMapEntry.workingDirectory}`);
-        // const images: { data: number[], width: number, height: number }[] = files.map((path: string) => {
-        //     // const bin = new BinaryFile(path, BinaryFile.ReadOnly);
-        //     // const arrayBuffer = bin.readAll();
-        //     // bin.close();
-            
-        //     // const pixels = getPixels(arrayBuffer);
-        //     const img = new Image(path, 'png');
-            
-        //     // format we want is data, width and height. data is a flat array that's [r, g, b, a, r, g, b, a, ...]
-        //     const width = img.width
-        //     const height = img.height;
-        //     let pixels = [];
-            
-            
 
-        //     return {
-        //         data: pixels,
-        //         width: width,
-        //         height: height
-        //     };
-        // })
         const images: { data: number[], width: number, height: number }[] = files.map((path: string) => {
             tiled.log(`[tiled-timelapse] Reading image data from ${path}`);
             const json = new TextFile(path, TextFile.ReadOnly);
@@ -213,8 +166,6 @@ const exportAction = tiled.registerAction('ExportTimelapseGif', (action) => {
                 width: data.width,
                 height: data.height
             }
-
-            // return data as { data: number[], width: number, height: number };
         }).filter((img: any) => img !== null && img.data && img.width && img.height);
 
         const gif = new GIFEncoder();
@@ -230,8 +181,6 @@ const exportAction = tiled.registerAction('ExportTimelapseGif', (action) => {
                 palette,
                 delay: frameDelayInput.value,
                 repeat: 0, // forever
-
-
             });
         }
 
