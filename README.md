@@ -7,7 +7,8 @@ A collection of Tiled extensions written by AnotherPillow in TypeScript.
 - tiled-timelapse
   - Exports screenshots of the current map periodically, to show progress over time.
   - THIS USES A LOT OF STORAGE ON LARGE MAPS
+  - Documentation: [https://pillow.rocks/docs?page=tiled-timelapse#](https://pillow.rocks/docs?page=tiled-timelapse#)
 
 ## Licensing
 
-Mozilla Public License 2.0 (MPL-2.0), with initial code from [TiledTSXExtensionTemplate](https://github.com/fmoo/TiledTSXExtensionTemplate), licensed under the Unlicense   .
+Mozilla Public License 2.0 (MPL-2.0), with initial code from [TiledTSXExtensionTemplate](https://github.com/fmoo/TiledTSXExtensionTemplate), licensed under the Unlicense.
