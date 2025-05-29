@@ -8,7 +8,7 @@ A collection of Tiled extensions written by AnotherPillow in TypeScript.
 
 - Exports screenshots of the current map periodically, to show progress over time.
 - THIS USES A LOT OF STORAGE ON LARGE MAPS
-- Documentation: [https://pillow.rocks/docs?page=tiled-timelapse#](https://pillow.rocks/docs?page=tiled-timelapse#)
+- Documentation: [https://pillow.rocks/docs/?page=tiled-timelapse#](https://pillow.rocks/docs/?page=tiled-timelapse#)
 
 #### todo:
 
